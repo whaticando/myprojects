@@ -1,0 +1,99 @@
+{% extends 'account/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>修改邮箱</title>
+{% endblock %}
+
+{% block main %}
+    <div class="jq22-container" style="padding-top:100px">
+        <div class="login-wrap">
+            <div class="element-main">
+                <div class="login-html">
+                    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1"
+                                                                                             class="tab">修改邮箱</label>
+                    <div class="login-form">
+                        <form>
+                            {% csrf_token %}
+                            <div class="">
+                                <div class="group">
+                                    <label for="old_email" class="label" style="color: white;font-size:15px">
+                                        旧邮箱<span class="asteriskField">*</span>
+                                    </label>
+                                    <div class="">
+                                        <input type="text" class="input" id="old_email"
+                                               value="{{ request.user.email }}">
+                                        {#                                                                <span class="error pull-right"></span>#}
+                                    </div>
+                                </div>
+                                <div class="group">
+                                    <label for="email" class="label" style="color: white;font-size:15px">
+                                        新邮箱<span class="asteriskField">*</span>
+                                    </label>
+                                    <div class="">
+                                        <input type="text" class="input" id="email" placeholder="新邮箱">
+                                        <span class="error pull-right"> </span>
+                                    </div>
+                                </div>
+
+                                <div class="group">
+                                    <input type="button" class="button" id="sub_change" value="提交">
+                                </div>
+
+                            </div>
+                            <div class="foot-lnk">
+                                <a href="{% url 'accounts:profile' %}">返回</a>
+                            </div>
+                        </form>
+                        {#                        <form id="change_form" style="margin-top: 20px">#}
+                        {#                            {% csrf_token %}#}
+                        {#                            <div class="form-group">#}
+                        {#                                <label>邮箱：</label>#}
+                        {#                                <input type="text" value="{{ request.user.email }}" class="form-control" id="email">#}
+                        {#                                <span class="error pull-right"></span>#}
+                        {#                            </div>#}
+                        {##}
+                        {#                            <input type="button" value="提交" class="btn btn-info" id="sub_change">#}
+                        {#                        </form>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--element end here-->
+    <script type="text/javascript">
+        $("#sub_change").click(function () {
+            var email = $("#email").val();
+            var formdata = new FormData();
+            formdata.append("email", email);
+            formdata.append("csrfmiddlewaretoken", $("[name='csrfmiddlewaretoken']").val());
+
+            $.ajax({
+                url: "",
+                type: "post",
+                contentType: false,
+                processData: false,
+                data: formdata,
+                success: function (data) {
+                    console.log(data);
+                    if (data.user) {
+                        alert("邮箱更改成功");
+                        location.href = '{% url 'accounts:profile' %}';
+                    } else {
+                        console.log(data.msg);
+                        $(".error").html("邮箱已经被注册！").css("color", "red")
+                        {#$("#email+ span").html(data.msg)#}
+                        setTimeout(function () {
+                            $(".error").html(' ');
+                        }, 2000)
+                    }
+                }
+            })
+
+        })
+
+    </script>
+
+
+{% endblock %}

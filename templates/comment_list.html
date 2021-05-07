@@ -1,0 +1,194 @@
+{% load static %}
+{% load comment_tags static %}
+{% load oauth_tags static %}
+<div id="respond" class="no_webshot">
+    <form action="" method="post" id="commentform">
+        <div class="comt-title">
+{#            {% if request.session.username|default:'' != '' %}#}
+{#                {% get_user_data request.session.uid as user %}#}
+{#                <div class="ull-left">#}
+{#                    <img src="/media/{{ request.user.avatar }}" class='avatar avatar-54 photo avatar-default' height='54' width='54'/>#}
+{#                    <div>  <img class="avatar" src="/media/{{ request.user.avatar }}" alt="{{ user.username }}" width="54" height="54px"></div>#}
+{##}
+{#                </div>#}
+{#                <div class="comt-author pull-left" id="nick">#}
+{#                    {{ request.session.username }}#}
+{#                </div>#}
+{#            {% endif %}#}
+
+            {% if request.session.nick|default:'' != '' %}
+                {% get_tourist_data request.session.tid as tourist %}
+                <div class="comt-avatar pull-left">
+                    <img alt='' src="/media/{{ request.user.avatar }}" height="104" width="104">
+                </div>
+                <div class="comt-author pull-left" id="nick">
+                    {{ tourist.nickname }}
+                    &nbsp; <a class="switch-author" href="javascript:;" data-type="switch-author"
+                              style="font-size:12px;">换个身份</a>
+
+                </div>
+            {% else %}
+
+                <div class="comt-author pull-left" id="nick">
+
+                </div>
+            {% endif %}
+
+{#            <a id="cancel-comment-reply-link" class="pull-right" href="javascript:;">取消评论</a>#}
+        </div>
+
+        <div class="comt">
+            <div class="comt-box">
+                <h3>发表我的评论</h3>
+                <div class="card mt-2 rounded-0 border-0" id="comment-block">
+                    <div class="card border-0 rounded-0 f-16" id="editor-block">
+                        <div class="card-body p-2 p-md-3">
+                        <textarea placeholder="写点什么..." class="input-block-level comt-area" name="w" id="comment" cols="50%" rows="3" tabindex="1" onkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13){document.getElementById('submit').click();return false};"></textarea>
+                            <textarea name="comment" cols="50%" rows="4" style="display:none"></textarea>
+                            {#                <textarea name="comment" cols="100%" rows="4" style="display:none"></textarea>#}
+                            <div class="editor-toolbar">
+                                <a title="粗体(Ctrl-B)" tabindex="-1" class="fa fa-bold"></a>
+                                <a title="斜体(Ctrl-I)" tabindex="-1" class="fa fa-italic"></a>
+                                <a title="引用(Ctrl-')" tabindex="-1" class="fa fa-quote-left"></a>
+                                <a title="代码(Ctrl-Alt-C)" tabindex="-1" class="fa fa-code"></a>
+                                <a title="插入链接(Ctrl-K)" tabindex="-1" class="fa fa-link"></a>
+                                <a title="插入图片(Ctrl-Alt-I)" tabindex="-1" class="fa fa-picture-o"></a>
+                                <a title="插入表格" tabindex="-1" class="fa fa-table"></a>
+                                <a title="预览(Ctrl-P)" tabindex="-1" class="fa fa-eye no-disable"></a>
+                            </div>
+{#                            <div class="CodeMirror cm-s-paper CodeMirror-wrap CodeMirror-empty">#}
+{#                                <div class="CodeMirror cm-s-paper CodeMirror-wrap CodeMirror-empty">#}
+{#                                    <div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 15px; left: 63px;">#}
+{#                                            <textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position:absolute;padding:0px;#}
+{#                                            width:500px; height: 1em; outline: none;" tabindex="O">#}
+{#                                            </textarea>#}
+{#                                        <textarea placeholder="写点什么..." class="input-block-level comt-area" name="w" id="comment" cols="100%" rows="3" tabindex="1" onkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13){document.getElementById('submit').click();return false};"></textarea><textarea name="comment" cols="100%" rows="4" style="display:none"></textarea>#}
+{#                                    </div>#}
+{#                                    <div class="CodeMirror-vscrollbar" cm-not-content="true">#}
+{#                                        <div style="min-width: 1px; height: 0px; "></div>#}
+{#                                    </div>#}
+{#                                    <div class="CodeMirror-hscrollbar" cm-not-content="true">#}
+{#                                        <div style="height: 100%; min-height: 1px; width: 0px;"></div>#}
+{#                                    </div>#}
+{#                                    <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>#}
+{#                                    <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>#}
+{#                                    <div class="CodeMirror-scroll" tabindex="-1">#}
+{#                                        <div class="CodeNirror-sizer"#}
+{#                                             style="margin-left: 0px; margin-bottom: -21px; border-right-width:9px;#}
+{#                                             min-height: 28px;padding-right: 0px; padding-bottom: 0px; ">#}
+{#                                            <div style="position: relative; top: 0px; ">#}
+{#                                                <div class="CodeMirror-lines">#}
+{#                                                    <div style="position: relative; outline: none; ">#}
+{#                                                        <pre class="CodeMirror-placeholder"#}
+{#                                                             style="height: 0px; overflow: visible;">请登录后再来愉快地尬聊</pre>#}
+{#                                                        <div class="CodeMirror-measure"></div>#}
+{#                                                        <div class="CodeMirror-measure"></div>#}
+{#                                                        <div style="position: relative; z-index: 1; "></div>#}
+{#                                                        <div class="CodeMirror-cursors">#}
+{#                                                            <div class="codeMirror-cursor"#}
+{#                                                                 style="left: 4px; top: 0px; height: 20px;">"&nbsp;#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                        <div class="CodeMirror-code">#}
+{#                                                        <pre class=" CodeMirror-line ">#}
+{#                                                            <span style="padding-right: 0.1px; ">#}
+{#                                                                <span cm-text>&#8203;</span>#}
+{#                                                            </span>#}
+{#                                                        </pre>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div style="position: absolute; height: 9px; width: 1px; border-bottom: 0px solid transparent; top:28px; "></div>#}
+{#                                        <div class="CodeMirror-gutters" style="display: none; height: 37px;"></div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="editor-preview-side"></div>#}
+{#                                <div class="editor-statusbar">#}
+{#                                    <span class="autosave"></span>#}
+{#                                    <span class="lines">#}
+{#                                </span>#}
+{#                                    <span class="words"></span>#}
+{#                                    <span class="cursor">0:0</span>#}
+{#                                    <span class="float-left text-info ml-0 hidden" id="rep-to"></span></div>#}
+{#                            </div>#}
+                        </div>
+                    </div>
+                </div>
+                <div class="comt-ctrl">
+                    <button class="btn btn-primary center-block" type="submit" name="submit" id="submit" tabindex="5">
+                        <i class="fa fa-check-square-o"></i> 提交评论
+                    </button>
+                    <div class="comt-tips pull-right">
+                        <input type='hidden' name='comment_post_ID' value='{{ category }}' id='comment_post_ID'/>
+                        <input type='hidden' name='comment_parent' id='comment_parent' value='0'/>
+                        <p style="display: none;"><input type="hidden" id="akismet_comment_nonce"
+                                                         name="akismet_comment_nonce" value="da9dc5c77a"/></p>
+                        <p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="50"/></p>
+                    </div>
+
+                    <span data-type="comment-insert-smilie" class="muted comt-smilie"><i
+                            class="fa fa-smile-o"></i>表情</span>
+                    <span class="muted comt-mailme">
+                        <label for="comment_mail_notify" class="checkbox inline" style="padding-top:0">
+                            <input type="checkbox" name="comment_mail_notify" id="comment_mail_notify"
+                                   value="comment_mail_notify" checked="checked"/>有人回复时邮件通知我
+                        </label>
+                    </span>
+                </div>
+            </div>
+
+            <div class="comt-comterinfo" id="comment-author-info">
+                <h4>Hi，您需要填写昵称和邮箱！</h4>
+                <ul>
+                    <li class="form-inline"><label class="hide" for="author">昵称</label><input class="ipt" type="text"
+                                                                                              name="author" id="author"
+                                                                                              value="{% if user %}{{ user.username }}{% elif tourist %}{{ tourist.nickname }}{% endif %}"
+                                                                                              tabindex="2"
+                                                                                              placeholder="昵称"><span
+                            class="help-inline">昵称 (必填)</span></li>
+                    <li class="form-inline"><label class="hide" for="email">邮箱</label><input class="ipt" type="text"
+                                                                                             name="email" id="email"
+                                                                                             value="{% if user %}{{ user.email }}{% elif tourist %}{{ tourist.email }}{% endif %}"
+                                                                                             tabindex="3"
+                                                                                             placeholder="邮箱"><span
+                            class="help-inline">邮箱 (必填)</span></li>
+                    <li class="form-inline"><label class="hide" for="url">网址</label><input class="ipt" type="text"
+                                                                                           name="url" id="url" value="
+                            {% if user %}{{ user.link }}{% elif tourist %}{{ tourist.address }}{% endif %}" tabindex="4"
+                                                                                           placeholder="网址"><span
+                            class="help-inline">网址</span></li>
+                </ul>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+<div id="postcomments">
+
+    {% if category == 'message' %}
+        {% get_comment_user_count category as  user_num %}
+        {% build_comment_tree category path as comment_dic %}
+        {% for k,v in comment_dic %}
+        {% build_comment_tree category request.path as htm %}
+
+        {% endfor %}
+    {% elif category == 'about' %}
+        {% get_comment_user_count category as  user_num %}
+        {% build_comment_tree category request.path as htm %}
+    {% else %}
+        {% get_comment_user_count category category as  user_num %}
+        {% build_comment_tree category request.path category as htm %}
+    {% endif %}
+    <div id="comments">
+        <i class="fa fa-comments-o"></i> <b> ({{ user_num }})</b>个小伙伴在吐槽
+    </div>
+    {{ htm }}
+    <div class="commentnav">
+                {% get_parent_comments comment as parent_comments %}
+                {{parent_comments.content_to_markdown|safe }}
+    </div>
+</div>

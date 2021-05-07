@@ -1,0 +1,11 @@
+
+#gcs-footer {
+    margin-top: 20px;
+    width: 100%;
+    height: 165px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    color: grey;
+}
+

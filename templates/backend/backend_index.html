@@ -1,0 +1,243 @@
+{% load blog_tags comment_tags %}
+{% load static %}
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://v3.bootcss.com/examples/dashboard/ -->
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <title>管理页面</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/plugins/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/dashboard.css" rel="stylesheet">
+    <link href="/static/css/my-style.css" rel="stylesheet">
+    <link rel="icon" href="{% static 'images/picture.ico' %}" type="image/x-icon"/>
+     <link rel='stylesheet' id='crayon-css' href='{% static 'css/crayon.min.css' %}' type='text/css' media='all'/>
+    <link rel='stylesheet' id='crayon-theme-github-css' href='{% static 'css/github.css' %}' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='crayon-font-monaco-css' href='{% static 'css/monaco.css' %}' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='page-list-style-css' href='{% static 'css/page-list.css' %}' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='l2h_style-css' href='{% static 'css/latex.min.css' %}' type='text/css'
+          media='screen, print'/>
+    <link rel='stylesheet' id='l2h_print_style-css' href='{% static 'css/print.min.css' %}' type='text/css'
+          media='print'/>
+    <link rel='stylesheet' id='style-css' href='{% static 'css/style.css' %}' type='text/css' media='all'/>
+    <link rel='stylesheet' id='style-css' href='{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}'
+          type='text/css' media='all'/>
+    {#    <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/fonts' %}">#}
+    <link rel="stylesheet" href="{% static 'highlights/github.css' %}">
+    <link rel="stylesheet" href="{% static 'css/table_test.css' %}">
+    <link rel="stylesheet" href="{% static 'css/simplemde.css' %}">
+{#    <link rel="stylesheet" href="{% static 'css/output.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'css/output5.css' %}">#}
+
+    <script type='text/javascript' src='{% static 'js/jquery.min.js' %}'></script>
+    <script type='text/javascript' src="{% static 'js/editor.js' %}"></script>
+    <script type='text/javascript' src="{% static 'js/activate-power.js' %}"></script>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" style="margin-bottom: 0">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="true"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://v3.bootcss.com/examples/dashboard/#" style="background-color: #484848">{{ request.user }}的管理页面</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse" aria-expanded="true" style="">
+            {#      <ul class="nav navbar-nav navbar-right">#}
+            {#        <li><a href="http://v3.bootcss.com/examples/dashboard/#">Dashboard</a></li>#}
+            {#        <li><a href="http://v3.bootcss.com/examples/dashboard/#">Settings</a></li>#}
+            {#        <li><a href="http://v3.bootcss.com/examples/dashboard/#">Profile</a></li>#}
+            {#        <li><a href="http://v3.bootcss.com/examples/dashboard/#">Help</a></li>#}
+            {#      </ul>#}
+            <form class="navbar-form navbar-right">
+                <a href="http://127.0.0.1:8000/" class="navbar-brand">返回主页</a>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="">
+    <div class=''>
+{#        <div style="width:390px">#}
+            <div style="height:auto;width:10%;background-color:#555555;position: absolute;padding-top:10px;text-align: center;font-size: 15px;">
+                <a style="color: white;" >文章管理
+{#                                <span class="glyphicon glyphicon-menu-left pull-right"></span>#}
+                </a>
+            </div>
+
+            {#            <ul class="nav nav-sidebar collapse" id="menu-son1">#}
+            {#                <li><a href="http://v3.bootcss.com/examples/dashboard/#">Overview <span#}
+            {#                        class="sr-only">(current)</span></a></li>#}
+            {#                <li><a href="http://v3.bootcss.com/examples/dashboard/#">Reports</a></li>#}
+            {#                <li><a href="http://v3.bootcss.com/examples/dashboard/#">Analytics</a></li>#}
+            {#                <li><a href="http://v3.bootcss.com/examples/dashboard/#">Export</a></li>#}
+            {#            </ul>#}
+
+            {#            <ul class="nav nav-sidebar collapse" id="menu-son2">#}
+            {#                <li><a href="http://v3.bootcss.com/examples/dashboard/">Nav item</a></li>#}
+            {#                <li><a href="http://v3.bootcss.com/examples/dashboard/">Nav item again</a></li>#}
+            {#                <li><a href="http://v3.bootcss.com/examples/dashboard/">One more nav</a></li>#}
+            {#                <li><a href="http://v3.bootcss.com/examples/dashboard/">Another nav item</a></li>#}
+            {#                <li><a href="http://v3.bootcss.com/examples/dashboard/">More navigation</a></li>#}
+            {#            </ul>#}
+            {#            <div class="my-menu-item" href="#menu-son3" data-toggle="collapse"><a>菜单三<span#}
+            {#                    class="glyphicon glyphicon-menu-left pull-right"></span></a></div>#}
+            {#            <ul class="nav nav-sidebar collapse" id="menu-son3">#}
+            {#                <li><a href="http://v3.bootcss.com/examples/dashboard/">Nav item again</a></li>#}
+            {#                <li><a href="http://v3.bootcss.com/examples/dashboard/">One more nav</a></li>#}
+            {#                <li><a href="http://v3.bootcss.com/examples/dashboard/">Another nav item</a></li>#}
+            {#            </ul>#}
+{#        </div>#}
+
+    </div>
+</div>
+   <div style="width: auto;height: auto;position:absolute;padding-left: 10%">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="my-panel-head">
+                    <div class="my-title">文章管理</div>
+                </div>
+                <div class="row">
+                    <div class="my-table-toolbar">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label class="sr-only" for="table-search">table search</label>
+                                <input type="text" class="form-control" id="table-search" placeholder="搜索">
+                            </div>
+                            <button class="btn btn-primary">搜索</button>
+
+
+                            <a href="http://127.0.0.1:8000/blog/backend_add_article/" type="button"
+                               class="btn btn-info pull-right">新文章添加</a>
+                        </form>
+                    </div>
+                </div>
+                <!-- Table -->
+                <div class="my-table-wrapper">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>文章标题</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- 这边是引入的内容！！！！！！！！！！！！！！！！！！！ -->
+                        {% get_article_list as article_list %}
+                        {% for article in article_list %}
+                            <tr>
+                                <td>
+                                    <article class="excerpt">
+                                        <header><a class="label label-important"
+                                                   href="/category/{{ article.category.bigcategory.name }}/{{ article.category.name|lower }}">{{ article.category.name }}<i
+                                                class="label-arrow"></i></a>
+                                            <h2><a target="_blank" href="/article/{{ article.slug }}"
+                                                   title="{{ article.title }}">{{ article.title }} </a></h2>
+                                        </header>
+                                        <div class="focus">
+                                            <a target="_blank" href="{{ article.get_absolute_url }}">
+                                                <img class="thumb" width="180" height="123" src="{{ article.img_link }}"
+                                                     alt="{{ article.title }}"/>
+                                            </a>
+                                        </div>
+                                        <span class="note">{{ article.summary }}</span>
+                                        <p class="auth-span">
+                    <span class="muted"><i class="fa fa-user"></i>
+                        <a href="{% url 'accounts:profile' %}?next={{ request.path }}">{{ article.author }}</a>
+                    </span>
+                                            <span class="muted"><i
+                                                    class="fa fa-clock-o"></i> {{ article.create_date|date:'Y-m-d' }}</span>
+                                            <span class="muted"><i class="fa fa-eye"></i> {{ article.views }}浏览</span>
+                                            <span class="muted"><i class="fa fa-comments-o"></i>
+                        <a target="_blank"
+                           href="/article/{{ article.slug }}#comments">{% get_comment_count article.id article.id %}评论</a>
+                    </span>
+                                            <span class="muted"><a href="javascript:;" data-action="ding"
+                                                                   data-id="{{ article.id }}"
+                                                                   id="Addlike" class="action">
+                        <i class="fa fa-heart-o"></i><span class="count">{{ article.loves }}</span>喜欢</a>
+                    </span>
+                                        </p>
+                                    </article>
+
+                                </td>
+                                <td>
+                                    <a href="/backend/{{ article.pk }}/edit_article/" class="btn btn-sm btn-info">
+                                        <span class=""></span>编辑</a>
+
+                                    <div style="padding-top:50px;"><a href="/backend/{{ article.pk }}/delete_article/" class="btn btn-sm btn-info" style="background-color:#CC0033;">
+                                        <span>删除</span></a></div>
+                                </td>
+
+
+
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <!-- 这边是引入后关闭的内容！！！！！！！！！！！！！！！！！！！ -->
+                    </table>
+                    <div class="row">
+                        <div class="col-md-7 col-xs-12 pull-right">
+                            <nav aria-label="...">
+                                <ul class=" pull-right pagination">
+                                    <li><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/static/js/jquery-3.2.1.min.js"></script>
+<script src="/static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".my-menu-item").on("click", "a", function () {
+            $(this).toggleClass("active");
+            var $spanEle = $(this).find("span");
+            if ($spanEle.hasClass("glyphicon-menu-left")) {
+                $spanEle.removeClass("glyphicon-menu-left").addClass("glyphicon-menu-down");
+            } else {
+                $spanEle.removeClass("glyphicon-menu-down").addClass("glyphicon-menu-left");
+            }
+        })
+    });
+</script>
+</body>
+</html>

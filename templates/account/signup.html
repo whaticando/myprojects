@@ -1,0 +1,258 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>register</title>#}
+{#    <link rel="stylesheet" href="/static/css/bootstrap.min.css">#}
+{#    <style>#}
+{#        #avatar_img{#}
+{#            margin-left: 20px;#}
+{##}
+{#        }#}
+{#        .error{#}
+{#            color: red;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#<h3>注册页面</h3>#}
+{#<div class="container">#}
+{#    <div class="row">#}
+{#        <div class="col-md-6 col-md-offset-3">#}
+{#            <form id="form">#}
+{#                {% csrf_token %}#}
+{#                {% for field in form %}#}
+{#                    <div class="form-group">#}
+{#                        <label for="{{ field.auto_id }}">{{ field.label }}</label>#}
+{#                        {{ field }} <span class="error pull-right"></span>#}
+{##}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#                 <div class="form-group">#}
+{#                    <label for="id_user">用户名</label>#}
+{#                    {{ form.user }}#}
+{#                    <span class="error pull-right"></span>#}
+{#                </div>#}
+{#                <div class="form-group">#}
+{#                    <label for="id_pwd">密码</label>#}
+{#                    {{ form.pwd }}#}
+{#                    <span class="error pull-right"></span>#}
+{#                </div>#}
+{#                <div class="form-group">#}
+{#                    <label for="id_repeat_pwd">确认密码</label>#}
+{#                    {{ form.re_pwd }}#}
+{#                    <span class="error pull-right"></span>#}
+{#                </div>#}
+{#                <div class="form-group">#}
+{#                    <label for="id_email">邮箱</label>#}
+{#                    {{ form.email }}#}
+{#                    <span class="error pull-right"></span>#}
+{#                </div>#}
+{##}
+{#                <div class="form-group">#}
+{#                    label for 和 input id值一样，点击label相当于点击input#}
+{#                    <label for="avatar">头像#}
+{#                        <img id="avatar_img" height='60' width="60" src="/media/avatar/default.png">#}
+{#                    </label>#}
+{#                    <input type="file" id="avatar" name="avatar" style="display: none">#}
+{##}
+{#                </div>#}
+{#                <input type="button" class="btn btn-primary reg_btn" value="注册">#}
+{#                <span class="error"></span>#}
+{##}
+{#            </form>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{#</body>#}
+{#<script src="/static/js/jquery-3.2.1.min.js"></script>#}
+{#<script>#}
+{#    $('#avatar').change(function () {#}
+{#        var file_obj = $(this)[0].files[0];#}
+{#        var reader = new FileReader();#}
+{#        reader.readAsDataURL(file_obj);#}
+{##}
+{#        // 修改img的src属性， src=文件属性#}
+{#        reader.onload = function () {#}
+{#            $('#avatar_img').attr('src', reader.result);#}
+{#        }#}
+{##}
+{#    });#}
+{##}
+{#    //基于ajax提交数据#}
+{#    $('.reg_btn').click(function () {#}
+{#        var formdata = new FormData();#}
+{#        var request_data = $("#form").serializeArray();#}
+{#        $.each(request_data, function (index, data) {#}
+{#           formdata.append(data.name, data.value)#}
+{#        });#}
+{#       formdata.append("avatar", $("#avatar")[0].files[0]);#}
+{##}
+{##}
+{#        $.ajax({#}
+{#            url:'',#}
+{#            type:'post',#}
+{#            contentType:false,#}
+{#            processData:false,#}
+{#            data:formdata,#}
+{#            success:function (data) {#}
+{#                console.log(data);#}
+{#                if(data.user){#}
+{#                    location.href='{% url 'accounts:login' %}'#}
+{#                    //注册成功#}
+{#                }else{#}
+{#                    console.log(data.msg);#}
+{#                    //清空错误信息#}
+{#                    $('span.error').html("");#}
+{#                    $.each(data.msg, function (field, error_list) {#}
+{#                        if(field == '__all__'){#}
+{#                            $('#id_re_pwd').next().html(error_list[0]).parent().addClass('has-error')#}
+{#                        }#}
+{#                        $('#id_'+field).next().text(error_list[0]);#}
+{#                        $('#id_'+field).parent().addClass("has-error");#}
+{#                    })#}
+{#                }#}
+{#            }#}
+{##}
+{##}
+{#        })#}
+{##}
+{##}
+{#    })#}
+{#</script>#}
+{#</html>#}
+
+
+{% extends 'account/base.html' %}
+
+{% block title %}
+    <title>注册</title>
+    <style>
+        #avatar_img {
+            margin-left: 20px;
+
+        }
+
+        .error {
+            color: red;
+        }
+        label{
+            color: white;
+            font-size:15px
+        }
+    </style>
+{% endblock %}
+<!--主要内容块-->
+{% block main %}
+    <main>
+        <div class="jq22-container" style="padding-top:100px">
+            <div class="login-wrap">
+                <div class="login-html">
+                    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1"
+                                                                                             class="tab"></label>
+                    <input id="tab-2" type="radio" name="tab" class="sign-up" checked><label for="tab-2"
+                                                                                             class="tab">注册</label>
+                    <div class="login-form">
+                        <form id="form">
+                            <div class="sign-up-htm">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="id_user" class="label" >用户名<span class="asteriskField">*</span></label>
+                                 {{ form.user }}
+                                <span class="error pull-right"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_pwd" class="label">密码<span class="asteriskField">*</span></label>
+                                {{ form.pwd }}
+                                <span class="error pull-right"></span>
+                            </div>
+                            <div class="form-group" class="label">
+                                <label for="id_repeat_pwd">确认密码<span class="asteriskField">*</span></label>
+                                {{ form.re_pwd }}
+                                <span class="error pull-right"></span>
+                            </div>
+                            <div class="form-group" class="label">
+                                <label for="id_email">邮箱<span class="asteriskField">*</span></label>
+                                {{ form.email }}
+                                <span class="error pull-right"></span>
+                            </div>
+
+                            <div class="form-group">
+                                {#                    label for 和 input id值一样，点击label相当于点击input#}
+                                <label for="avatar">头像
+                                    <img id="avatar_img" height='60' width="60" src="/media/avatar/default.png">
+                                </label>
+                                <input type="file" id="avatar" name="avatar" style="display: none">
+
+                            </div>
+                            <div class="group">
+                            <input type="button" class="button reg_btn" value="注册">
+                            <span class="error"></span>
+                            </div>
+                             <div class="foot-lnk">
+                                    <a href="{% url 'accounts:login' %}">已有账号登录</a>
+                             </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+    </main>
+
+    <script src="/static/js/jquery-3.2.1.min.js"></script>
+    <script>
+        $('#avatar').change(function () {
+            var file_obj = $(this)[0].files[0];
+            var reader = new FileReader();
+            reader.readAsDataURL(file_obj);
+
+            // 修改img的src属性， src=文件属性
+            reader.onload = function () {
+                $('#avatar_img').attr('src', reader.result);
+            }
+
+        });
+
+        //基于ajax提交数据
+        $('.reg_btn').click(function () {
+            var formdata = new FormData();
+            var request_data = $("#form").serializeArray();
+            $.each(request_data, function (index, data) {
+                formdata.append(data.name, data.value)
+            });
+            formdata.append("avatar", $("#avatar")[0].files[0]);
+
+
+            $.ajax({
+                url: '',
+                type: 'post',
+                contentType: false,
+                processData: false,
+                data: formdata,
+                success: function (data) {
+                    console.log(data);
+                    if (data.user) {
+                        location.href = '{% url 'accounts:login' %}'
+                        //注册成功
+                    } else {
+                        console.log(data.msg);
+                        //清空错误信息
+                        $('span.error').html("");
+                        $.each(data.msg, function (field, error_list) {
+                            if (field === '__all__') {
+                                $('#id_re_pwd').next().html(error_list[0]).parent().addClass('has-error')
+                            }
+                            $('#id_' + field).next().text(error_list[0]);
+                            $('#id_' + field).parent().addClass("has-error");
+                        })
+                    }
+                }
+
+
+            })
+
+
+        })
+    </script>
+{% endblock %}

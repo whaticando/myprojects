@@ -1,0 +1,143 @@
+{#{% extends 'account/base.html' %}#}
+{#{% load static %}#}
+{#{% load oauth_tags %}#}
+{##}
+{#{% block title %}#}
+{#    <title>个人中心</title>#}
+{#{% endblock %}#}
+{##}
+{##}
+{#<!--主要内容块-->#}
+{#{% block main %}#}
+{#    <main>#}
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <div class="col-12 col-sm-8 col-md-6 offset-sm-2 offset-md-3 px-xl-5">#}
+{#                    <div class="card rounded-0 px-3 px-lg-4">#}
+{#                        <div class="card-header text-center bg-white py-2"><h3 class="my-1 text-info">个人资料</h3></div>#}
+{#                        <div class="card-body">#}
+{#                            <ul class="list-group">#}
+{#                                <li class="list-group-item text-center border-0" id="profile-avatar">#}
+{#                                    {% get_user_data request.session.uid as user %}#}
+{##}
+{#                                    {% if user %}#}
+{##}
+{#                                        <img class="avatar" src="/media/{{ user.avatar }}" alt="{{ user.username }}">#}
+{##}
+{#                                        </li>#}
+{#                                        <li class="list-group-item ml-5 border-0">#}
+{#                                            <span class="font-weight-bold">用户名：</span>#}
+{#                                            <span>{{ user.username }}</span>#}
+{#                                        </li>#}
+{#                                        <li class="list-group-item ml-5 border-0">#}
+{#                                            <span class="font-weight-bold">邮&emsp;箱：</span>#}
+{#                                            <span>{{ user.email }}</span>#}
+{#                                        </li>#}
+{#                                        <li class="list-group-item ml-5 border-0">#}
+{#                                            <span class="font-weight-bold">网&emsp;址：</span>#}
+{#                                            <span>{{ user.link }}</span>#}
+{#                                        </li>#}
+{#                                        </ul>#}
+{#                                        </div>#}
+{#                                        <div class="text-center mb-5" id="social-login">#}
+{#                                            <div class="more-link mt-3">#}
+{#                                                <a class="btn btn-info btn-sm rounded-0 mx-3"#}
+{#                                                   href="/accounts/profile/change/">修改资料</a>#}
+{#                                                <a class="btn btn-info btn-sm rounded-0 mx-3" href="/">返回首页</a>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    {% endif %}#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </main>#}
+{#{% endblock main %}#}
+
+
+{% load oauth_tags static %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user.username }}的个人主页</title>
+    <link rel="stylesheet" href="/static/css/user_profile.css?v=udTRe6JYfbH-bS6xgPAkC2x_TCfJy7-irgBBYrP28yA"/>
+    <link rel="icon" href="{% static 'images/picture.ico' %}" type="image/x-icon"/>
+</head>
+<body class="mainbody">
+<div id="user_profile_block">
+    <table>
+        <tbody>
+        <tr>
+            <td valign="top">
+                <div class="user_avatar">
+                    {#                    <img src="//pic.cnblogs.com/avatar/2179358/20210307193921.png" alt="水墨点点的头像" class="img_avatar"><br>#}
+                    <img class="avatar" src="/media/{{ request.user.avatar }}" alt="{{ user.username }}" width="250px" height="200px">
+                    <table class="user_profile_nav_block">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <ul class="avatar_nav_block" id="avatar_opt_nav">
+                                    <li><a href="/accounts/profile/change/" class="link_modify_info">修改信息</a></li>
+                                    <li><a href='{% url 'accounts:change_pwd' %}' class="link_question">修改密码</a></li>
+                                    <li><a href='{% url 'accounts:change_email' %}' class="link_question">修改邮箱</a></li>
+                                    <li><a href='http://127.0.0.1:8000/' class="link_question">返回主页</a></li>
+
+
+                                </ul>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+            <td valign="top">
+                <div>
+                    <h1 class="display_name">
+                        {{ user.username }}的信息卡
+                    </h1>
+                    <div>
+                        <ul id="user_profile" class="user_profile">
+                            <li id="li_remark" style="display:none"><span class="text_gray">备注名称：</span><span
+                                    id="remarkId"></span></li>
+                            <li><span class='text_gray' title='账户ID'>爱好:</span><span>ACG(二次元就是个梦，梦里啥都有，取决于你想要什么)</span></li>
+                            <li><span class='text_gray'>二次元浓度:</span><span>经典中二病</span></li>
+                            <li><span class='text_gray'>创站日期:</span><span>2021-4-1</span></li>
+                            <li><span class='text_gray'>目标:</span><span>发现生活中的美好，技术宅拯救世界</span></li>
+                            <li><span class='text_gray'>愿望:</span><span>世界和平</span></li>
+                            {#                            <li><span class='text_gray'>我的主页:</span><a id='blog_url'#}
+                            {#                                                                     href='http://127.0.0.1:8000/'#}
+                            {#                                                                     class='gray' target='_blank'>http://127.0.0.1:8000/</a>#}
+
+                        </ul>
+                    </div>
+                    <div class="text_gray" style="padding-top: 10px;">
+                        <div class="data_count_block" style="padding: 0px 0 15px;">
+                            {#                                <div class="data_left">#}
+                            {#                                    <div class="follow_count"><a id="following_count" href="/u/wjymyblog/followees/">0</a></div>#}
+                            {#                                    <a href="/u/wjymyblog/followees/">关注</a>#}
+                            {#                                </div>#}
+                            {#                                <div class="data_right">#}
+                            {#                                    <div class="follow_count"><a id="follower_count" href="/u/wjymyblog/followers/">0</a></div>#}
+                            {#                                    <a href="/u/wjymyblog/followers/">粉丝</a>#}
+                            {#                                </div>#}
+                            <div class="clear">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+                <br>
+                <div class="user_intro">
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+</div>
+
+</body>
+</html>

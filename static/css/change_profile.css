@@ -1,0 +1,39 @@
+.mainbody_change {
+    background-image: url('/static/images/change_back.jpeg');
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 1000px;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-position: center 0;
+}
+
+.aui-info {
+    position:relative;
+    left:60px;
+    top:60px;
+    width: 200px;
+    height:200px;
+
+}
+
+ .fileInput{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            opacity: 0;
+            display: block;
+            width: 3.5rem;
+            clear: both;
+            /*display: block;*/
+            margin: auto;
+            background-color: red;
+        }

@@ -1,0 +1,95 @@
+{% extends 'account/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>修改密码</title>
+{% endblock %}
+
+{% block main %}
+
+
+    <div class="jq22-container" style="padding-top:100px">
+        <div class="login-wrap">
+            {#	<h2>密码重置</h2>#}
+            <div class="element-main">
+                {#		<h1>修改您的密码</h1>#}
+                {#		<p> 切勿将您的密码告诉他人.</p>#}
+                <div class="login-html">
+                    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1"
+                                                                                             class="tab">修改密码</label>
+                    <div class="login-form">
+                        <form>
+                            {% csrf_token %}
+                            <div class="">
+                                <div  class="group">
+                                    <label for="pwd" class="label" style="color: white;font-size:15px">
+                                        新密码<span class="asteriskField">*</span>
+                                    </label>
+                                    <div class="">
+                                        <input type="text" class="input" id="pwd" placeholder="新密码">
+                                    </div>
+                                </div>
+
+                                <div  class="group">
+                                    <label for="re_pwd" class="label" style="color: white;font-size:15px">
+                                        确认新密码<span class="asteriskField">*</span>
+                                    </label>
+                                    <div class="">
+                                        <input type="password" class="input" id="re_pwd" placeholder="确认新密码">
+                                        <span class="error pull-right"> </span>
+                                    </div>
+{#                                    <span class="error pull-right"></span>#}
+                                </div>
+                                <div class="group">
+                                    <input type="button" class="button" id="sub_change" value="提交">
+                                </div>
+
+                            </div>
+                             <div class="foot-lnk">
+                                    <a href="{% url 'accounts:profile' %}">返回</a>
+                                    {#                                <input type="button" value="登录1" class="btn btn-primary pull-right login_btn">#}
+                             </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--element end here-->
+    <script type="text/javascript">
+        $("#sub_change").click(function () {
+            var pwd = $("#pwd").val();
+            var re_pwd = $("#re_pwd").val();
+            if (pwd !== re_pwd) {
+                $(".error").html("两次密码不一致").css("color", "red")
+                setTimeout(function () {
+                    $(".error").html(' ');
+                }, 2000)
+                return
+            }
+            $.ajax({
+                url: "",
+                type: "post",
+                data: {
+                    "pwd": pwd,
+                    "csrfmiddlewaretoken": $("[name='csrfmiddlewaretoken']").val(),
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (data.user) {
+                        alert("更改密码成功");
+                        location.href = '{% url 'accounts:login' %}';
+
+                    } else {
+                        $("#pwd").html(data.msg)
+                    }
+                }
+            })
+        })
+    </script>
+
+
+
+
+{% endblock %}
